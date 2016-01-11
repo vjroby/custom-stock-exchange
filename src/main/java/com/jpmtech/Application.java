@@ -11,4 +11,9 @@ public class Application {
 //        MonetaryAmount monetaryAmount = FastMoney.of()
 
     }
+
+
+    private static void getDataFromCSV(){
+
+    }
 }
