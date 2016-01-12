@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.IllegalFormatException;
 import java.util.Set;
@@ -56,6 +57,11 @@ public class Parser {
             if (type.equals(StockType.COMMON.toString())) return new CommonStock(symbol, parValue, lastDividend);
             else if(type.equals(StockType.PREFERRED.toString())) return new PreferredStock(symbol, parValue, lastDividend, fixedDividend);
             else throw new IllegalArgumentException("Stock type unknown: " + type);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("There was an error when parsing stock, line: " + Arrays.toString(stockStringInfo));
         }
     }
+
+    private static BigDecimal getDecimalFromString()
 }
