@@ -17,7 +17,7 @@ public class Parser {
 
     public static Set<StockInterface> parseCSVStocks(InputStream inputStream) {
         if (inputStream == null) return Collections.<StockInterface>emptySet();
-
+        Set<StockInterface> stocks = new HashSet<StockInterface>();
         BufferedReader bufferedReader = null;
         try{
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
@@ -26,6 +26,7 @@ public class Parser {
             while ((line = bufferedReader.readLine()) != null){
                 String[] stockString = line.split(cvsSplitBy);
                 StockInterface stock = convertStringToStock(stockString);
+                stocks.add(stock);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -39,6 +40,7 @@ public class Parser {
                 }
             }
         }
+        return stocks;
     }
 
     private static StockInterface convertStringToStock(String[] stockStringInfo) throws IllegalArgumentException {
@@ -50,7 +52,7 @@ public class Parser {
             String symbol = stockStringInfo[0];
             String type = stockStringInfo[1];
             Money lastDividend = Money.of("GBP", new BigDecimal(stockStringInfo[2]));
-            BigDecimal fixedDividend;
+            BigDecimal fixedDividend = new BigDecimal("0");
             Money parValue = Money.of("GBP", new BigDecimal(stockStringInfo[4]));
             if (type.equals(StockType.COMMON.toString())) return new CommonStock(symbol, parValue, lastDividend);
             else if(type.equals(StockType.PREFERRED.toString())) return new PreferredStock(symbol, parValue, lastDividend, fixedDividend);
@@ -61,5 +63,5 @@ public class Parser {
         }
     }
 
-    private static BigDecimal getDecimalFromString()
+//    private static BigDecimal getDecimalFromString();
 }

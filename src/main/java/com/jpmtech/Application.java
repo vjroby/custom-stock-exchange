@@ -13,7 +13,7 @@ public class Application {
 
     public final static String csvFileName = "/jpm.csv";
 
-    public final Set<StockInterface> STOCKS;
+    public static final Set<StockInterface> STOCKS;
 
     static {
         InputStream inputStream = Application.class.getResourceAsStream(csvFileName);
