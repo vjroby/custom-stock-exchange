@@ -1,11 +1,24 @@
 package com.jpmtech;
 
+import com.jpmtech.entities.StockInterface;
 import org.javamoney.moneta.FastMoney;
 import org.javamoney.moneta.Money;
 
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.Set;
+
 public class Application {
 
-    String csvFileName = "/jpm.csv";
+    public final static String csvFileName = "/jpm.csv";
+
+    public final Set<StockInterface> STOCKS;
+
+    static {
+        InputStream inputStream = Application.class.getResourceAsStream(csvFileName);
+
+        STOCKS = Collections.unmodifiableSet()
+    }
 
     public static void main(String[] args){
         FastMoney fastMoney = FastMoney.of("GBP",23);
