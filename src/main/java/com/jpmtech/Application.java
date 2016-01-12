@@ -1,5 +1,6 @@
 package com.jpmtech;
 
+import com.jpmtech.csv.Parser;
 import com.jpmtech.entities.StockInterface;
 import org.javamoney.moneta.FastMoney;
 import org.javamoney.moneta.Money;
@@ -17,7 +18,7 @@ public class Application {
     static {
         InputStream inputStream = Application.class.getResourceAsStream(csvFileName);
 
-        STOCKS = Collections.unmodifiableSet()
+        STOCKS = Collections.unmodifiableSet(Parser.parseCSVStocks(inputStream));
     }
 
     public static void main(String[] args){

@@ -11,15 +11,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.IllegalFormatException;
-import java.util.Set;
+import java.util.*;
 
 public class Parser {
 
     public static Set<StockInterface> parseCSVStocks(InputStream inputStream) {
         if (inputStream == null) return Collections.<StockInterface>emptySet();
+
         BufferedReader bufferedReader = null;
         try{
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
