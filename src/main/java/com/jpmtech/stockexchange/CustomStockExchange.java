@@ -12,7 +12,11 @@ public class CustomStockExchange {
 
     public void startExchange() {
         p("Custom Stock Exchange started.");
+        p("The following stocks will be used for trading:");
+        // TODO fixed dividend for preferred stock
+        p("TYPE, SYMBOL, PRICE, LAST DIVIDEND");
         tradingStocksService.printStocks();
+        p("The trading starts");
     }
 
     public void stopExchange() {

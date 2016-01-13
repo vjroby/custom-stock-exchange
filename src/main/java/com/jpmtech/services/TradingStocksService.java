@@ -4,6 +4,7 @@ import com.jpmtech.datasource.StockRepositoryInterface;
 import com.jpmtech.datasource.TradesRepositoryInterface;
 import com.jpmtech.entities.StockInterface;
 import com.jpmtech.exceptions.StockNotFoundException;
+import org.javamoney.moneta.Money;
 
 import java.util.Set;
 
@@ -36,6 +37,15 @@ public class TradingStocksService {
 
     public Double calculatePERation(String stockSymbol) throws StockNotFoundException{
         return null;
+    }
+
+    public void buyOrder(StockInterface stock, int quantity, Money price) {
+
+    }
+
+
+    public void sellOrder(StockInterface stock, int quantity, Money price) {
+
     }
 
     public void printStocks() {
