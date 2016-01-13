@@ -10,6 +10,8 @@ import java.util.Set;
 
 public class CustomStockExchange {
 
+    public static final String currency = "GBP";
+
     private final TradingStocksService tradingStocksService;
 
     public CustomStockExchange(TradingStocksService tradingStocksService) {
@@ -41,11 +43,26 @@ public class CustomStockExchange {
         Set<StockInterface> stocks = tradingStocksService.getStockRepository().getAllStocks();
 
         stocks.stream().forEach(stock -> {
-            BigDecimal priceVariation = new BigDecimal(1+Math.random()).divide(new BigDecimal(1)).round(MathContext.DECIMAL32);
-            int quantiy = (int) Math.round(Math.random()*5000 +1 );
-            Money tradePrice = stock.parValue().add(Money.of("GBP", priceVariation));
+            BigDecimal priceVariation = getRandomPrice();
+            int quantiy = getRandomQuantity();
+            Money tradePrice = stock.parValue().add(Money.of(currency, priceVariation));
             tradingStocksService.buyOrder(stock, quantiy, tradePrice);
         } );
+
+        stocks.stream().forEach(stock -> {
+            BigDecimal priceVariation = getRandomPrice();
+            int quantiy = getRandomQuantity();
+            Money tradePrice = stock.parValue().subtract(Money.of(currency, priceVariation));
+            tradingStocksService.sellOrder(stock, quantiy, tradePrice);
+        } );
+    }
+
+    private int getRandomQuantity() {
+        return (int) Math.round(Math.random()*5000 +1 );
+    }
+
+    private BigDecimal getRandomPrice() {
+        return new BigDecimal(10 + Math.random()).divide(new BigDecimal(1)).round(MathContext.DECIMAL32);
     }
 
     private static void p(String s) {

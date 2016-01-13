@@ -48,7 +48,7 @@ public class TradingStocksService {
 
 
     public void sellOrder(StockInterface stock, int quantity, Money price) {
-        addNewTrade(stock, quantity, price, TradeType.BUY);
+        addNewTrade(stock, quantity, price, TradeType.SELL);
     }
 
     private void addNewTrade(StockInterface stock, int quantity, Money price, TradeType tradeType){

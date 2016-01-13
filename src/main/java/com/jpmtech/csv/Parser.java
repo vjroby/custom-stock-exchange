@@ -4,6 +4,7 @@ import com.jpmtech.entities.CommonStock;
 import com.jpmtech.entities.PreferredStock;
 import com.jpmtech.entities.StockInterface;
 import com.jpmtech.entities.StockType;
+import com.jpmtech.stockexchange.CustomStockExchange;
 import org.javamoney.moneta.Money;
 
 import java.io.BufferedReader;
@@ -51,9 +52,9 @@ public class Parser {
         try {
             String symbol = stockStringInfo[0];
             String type = stockStringInfo[1];
-            Money lastDividend = Money.of("GBP", new BigDecimal(stockStringInfo[2]));
+            Money lastDividend = Money.of(CustomStockExchange.currency, new BigDecimal(stockStringInfo[2]));
             BigDecimal fixedDividend = new BigDecimal("0");
-            Money parValue = Money.of("GBP", new BigDecimal(stockStringInfo[4]));
+            Money parValue = Money.of(CustomStockExchange.currency, new BigDecimal(stockStringInfo[4]));
             if (type.equalsIgnoreCase(StockType.COMMON.toString())) return new CommonStock(symbol, parValue, lastDividend);
             else if(type.equalsIgnoreCase(StockType.PREFERRED.toString())) return new PreferredStock(symbol, parValue, lastDividend, fixedDividend);
             else throw new IllegalArgumentException("Stock type unknown: " + type);
