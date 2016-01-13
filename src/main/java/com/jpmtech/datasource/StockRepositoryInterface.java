@@ -6,10 +6,11 @@ import java.util.Set;
 
 public interface StockRepositoryInterface {
 
-    void SetStocks(Set<StockInterface> stockInterfaceSet);
+    void setStocks(Set<StockInterface> stockInterfaceSet);
 
     Set<StockInterface> getAllStocks();
 
     StockInterface getRandomStock();
+
 
 }

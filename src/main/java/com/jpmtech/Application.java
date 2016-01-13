@@ -1,7 +1,12 @@
 package com.jpmtech;
 
 import com.jpmtech.csv.Parser;
+import com.jpmtech.datasource.MemoryStockRepository;
+import com.jpmtech.datasource.MemoryTradesRepository;
+import com.jpmtech.datasource.StockRepositoryInterface;
+import com.jpmtech.datasource.TradesRepositoryInterface;
 import com.jpmtech.entities.StockInterface;
+import com.jpmtech.services.TradingStocksService;
 import org.javamoney.moneta.FastMoney;
 import org.javamoney.moneta.Money;
 
@@ -23,16 +28,11 @@ public class Application {
 
     public static void main(String[] args){
 
-
-
-        FastMoney fastMoney = FastMoney.of("GBP",23);
-        Money money = Money.of("GBP", 1);
-//        MonetaryAmount monetaryAmount = FastMoney.of()
-
-    }
-
-
-    private static void getDataFromCSV(){
+        StockRepositoryInterface stockRepository = new MemoryStockRepository(STOCKS);
+        TradesRepositoryInterface tradesRepository = new MemoryTradesRepository();
+        TradingStocksService tradingStocksService = new TradingStocksService()
+                .setStockRepository(stockRepository)
+                .setTradesRepository(tradesRepository);
 
     }
 }

@@ -13,16 +13,18 @@ public class TradingStocksService {
         return stockRepository;
     }
 
-    public void setStockRepository(StockRepositoryInterface stockRepository) {
+    public TradingStocksService setStockRepository(StockRepositoryInterface stockRepository) {
         this.stockRepository = stockRepository;
+        return this;
     }
 
     public TradesRepositoryInterface getTradesRepository() {
         return tradesRepository;
     }
 
-    public void setTradesRepository(TradesRepositoryInterface tradesRepository) {
+    public TradingStocksService setTradesRepository(TradesRepositoryInterface tradesRepository) {
         this.tradesRepository = tradesRepository;
+        return this;
     }
 
     public Double calculateDividendYield(String stockSymbol) throws StockNotFoundException{
