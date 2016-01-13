@@ -21,7 +21,7 @@ public class Parser {
         BufferedReader bufferedReader = null;
         try{
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
-            String line = "";
+            String line = bufferedReader.readLine();// skip first line
             String cvsSplitBy = ",";
             while ((line = bufferedReader.readLine()) != null){
                 String[] stockString = line.split(cvsSplitBy);
@@ -54,8 +54,8 @@ public class Parser {
             Money lastDividend = Money.of("GBP", new BigDecimal(stockStringInfo[2]));
             BigDecimal fixedDividend = new BigDecimal("0");
             Money parValue = Money.of("GBP", new BigDecimal(stockStringInfo[4]));
-            if (type.equals(StockType.COMMON.toString())) return new CommonStock(symbol, parValue, lastDividend);
-            else if(type.equals(StockType.PREFERRED.toString())) return new PreferredStock(symbol, parValue, lastDividend, fixedDividend);
+            if (type.equalsIgnoreCase(StockType.COMMON.toString())) return new CommonStock(symbol, parValue, lastDividend);
+            else if(type.equalsIgnoreCase(StockType.PREFERRED.toString())) return new PreferredStock(symbol, parValue, lastDividend, fixedDividend);
             else throw new IllegalArgumentException("Stock type unknown: " + type);
         }catch (Exception e){
             e.printStackTrace();
