@@ -3,9 +3,12 @@ package com.jpmtech.services;
 import com.jpmtech.datasource.StockRepositoryInterface;
 import com.jpmtech.datasource.TradesRepositoryInterface;
 import com.jpmtech.entities.StockInterface;
+import com.jpmtech.entities.Trade;
+import com.jpmtech.entities.TradeType;
 import com.jpmtech.exceptions.StockNotFoundException;
 import org.javamoney.moneta.Money;
 
+import java.time.Instant;
 import java.util.Set;
 
 public class TradingStocksService {
@@ -40,12 +43,22 @@ public class TradingStocksService {
     }
 
     public void buyOrder(StockInterface stock, int quantity, Money price) {
-
+       addNewTrade(stock, quantity, price, TradeType.BUY);
     }
 
 
     public void sellOrder(StockInterface stock, int quantity, Money price) {
+        addNewTrade(stock, quantity, price, TradeType.BUY);
+    }
 
+    private void addNewTrade(StockInterface stock, int quantity, Money price, TradeType tradeType){
+        Trade trade = new Trade(Instant.now(), tradeType, stock, quantity, price);
+        tradesRepository.addTrade(trade);
+        printTrade(trade);
+    }
+
+    private void printTrade(Trade trade){
+        System.out.println(trade);
     }
 
     public void printStocks() {

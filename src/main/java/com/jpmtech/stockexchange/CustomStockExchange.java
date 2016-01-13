@@ -1,6 +1,12 @@
 package com.jpmtech.stockexchange;
 
+import com.jpmtech.entities.StockInterface;
 import com.jpmtech.services.TradingStocksService;
+import org.javamoney.moneta.Money;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.util.Set;
 
 public class CustomStockExchange {
 
@@ -29,6 +35,17 @@ public class CustomStockExchange {
 
     private void calculateGeoMedian() {
 
+    }
+
+    public void startTrading(){
+        Set<StockInterface> stocks = tradingStocksService.getStockRepository().getAllStocks();
+
+        stocks.stream().forEach(stock -> {
+            BigDecimal priceVariation = new BigDecimal(1+Math.random()).divide(new BigDecimal(1)).round(MathContext.DECIMAL32);
+            int quantiy = (int) Math.round(Math.random()*5000 +1 );
+            Money tradePrice = stock.parValue().add(Money.of("GBP", priceVariation));
+            tradingStocksService.buyOrder(stock, quantiy, tradePrice);
+        } );
     }
 
     private static void p(String s) {

@@ -34,6 +34,8 @@ public class Application {
                 .setTradesRepository(tradesRepository);
         CustomStockExchange exchange = new CustomStockExchange(tradingStocksService);
         exchange.startExchange();
+        exchange.startTrading();
+        exchange.stopExchange();
 
     }
 }
