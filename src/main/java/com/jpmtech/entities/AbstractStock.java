@@ -37,4 +37,9 @@ public abstract class AbstractStock implements StockInterface {
     public String toString(){
         return type().toString()+ "[ " + symbol() +  "," + parValue() + "," + lastDividend() + "]";
     }
+
+    @Override
+    public int hashCode() {
+        return symbol.hashCode();
+    }
 }
