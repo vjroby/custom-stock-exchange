@@ -2,7 +2,10 @@ package com.jpmtech.services;
 
 import com.jpmtech.datasource.StockRepositoryInterface;
 import com.jpmtech.datasource.TradesRepositoryInterface;
+import com.jpmtech.entities.StockInterface;
 import com.jpmtech.exceptions.StockNotFoundException;
+
+import java.util.Set;
 
 public class TradingStocksService {
 
@@ -35,4 +38,11 @@ public class TradingStocksService {
         return null;
     }
 
+    public void printStocks() {
+        Set<StockInterface> stocks = stockRepository.getAllStocks();
+        for (StockInterface stock :
+                stocks) {
+            System.out.println(stock);
+        }
+    }
 }

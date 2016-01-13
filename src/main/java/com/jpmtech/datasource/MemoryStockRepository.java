@@ -19,7 +19,7 @@ public class MemoryStockRepository implements StockRepositoryInterface{
 
     @Override
     public Set<StockInterface> getAllStocks() {
-        return null;
+        return stocks;
     }
 
     @Override

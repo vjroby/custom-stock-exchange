@@ -7,8 +7,7 @@ import com.jpmtech.datasource.StockRepositoryInterface;
 import com.jpmtech.datasource.TradesRepositoryInterface;
 import com.jpmtech.entities.StockInterface;
 import com.jpmtech.services.TradingStocksService;
-import org.javamoney.moneta.FastMoney;
-import org.javamoney.moneta.Money;
+import com.jpmtech.stockexchange.CustomStockExchange;
 
 import java.io.InputStream;
 import java.util.Collections;
@@ -33,6 +32,8 @@ public class Application {
         TradingStocksService tradingStocksService = new TradingStocksService()
                 .setStockRepository(stockRepository)
                 .setTradesRepository(tradesRepository);
+        CustomStockExchange exchange = new CustomStockExchange(tradingStocksService);
+        exchange.startExchange();
 
     }
 }
