@@ -22,6 +22,9 @@ public class Application {
     }
 
     public static void main(String[] args){
+
+
+
         FastMoney fastMoney = FastMoney.of("GBP",23);
         Money money = Money.of("GBP", 1);
 //        MonetaryAmount monetaryAmount = FastMoney.of()
