@@ -53,7 +53,7 @@ public class Parser {
             String symbol = stockStringInfo[0];
             String type = stockStringInfo[1];
             Money lastDividend = Money.of(CustomStockExchange.currency, new BigDecimal(stockStringInfo[2]));
-            BigDecimal fixedDividend = new BigDecimal("0");
+            BigDecimal fixedDividend = formatFixedDividend(stockStringInfo[3]);
             Money parValue = Money.of(CustomStockExchange.currency, new BigDecimal(stockStringInfo[4]));
             if (type.equalsIgnoreCase(StockType.COMMON.toString())) return new CommonStock(symbol, parValue, lastDividend);
             else if(type.equalsIgnoreCase(StockType.PREFERRED.toString())) return new PreferredStock(symbol, parValue, lastDividend, fixedDividend);
@@ -64,5 +64,18 @@ public class Parser {
         }
     }
 
-//    private static BigDecimal getDecimalFromString();
+    private static BigDecimal formatFixedDividend(String fixedDividend) {
+        fixedDividend = fixedDividend.trim();
+        if (fixedDividend.length() == 0){
+            return BigDecimal.ZERO;
+        }
+        if(fixedDividend.endsWith("%")){
+            return new BigDecimal(fixedDividend.substring(0, fixedDividend.length()-1)).divide(new BigDecimal(100));
+        }
+        Integer fixedDivInt = Integer.parseInt(fixedDividend);
+        if(fixedDivInt < 0){
+            return BigDecimal.ZERO;
+        }
+        return new BigDecimal(fixedDivInt);
+    }
 }
