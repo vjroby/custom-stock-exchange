@@ -65,7 +65,7 @@ public class CustomStockExchange {
         return new BigDecimal(10 + Math.random()).divide(new BigDecimal(1)).round(MathContext.DECIMAL32);
     }
 
-    private static void p(String s) {
+    public static void p(String s) {
         System.out.println(s);
     }
 }

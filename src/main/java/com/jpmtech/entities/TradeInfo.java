@@ -17,15 +17,23 @@ public class TradeInfo {
 
     }
 
-    public void registerTrade(Trade trade) {
+    synchronized public void registerTrade(Trade trade) {
         quantity += trade.getQuantity();
         Money tradeValue = trade.getTradePrice().multiply(trade.getQuantity());
-        totalLiquidity.add(tradeValue);
-        totalStockVolume.add(tradeValue);
+        totalStockVolume = totalStockVolume.add(tradeValue);
+        if(trade.getTradeType().equals(TradeType.SELL)){
+            totalLiquidity = totalLiquidity.add(tradeValue);
+        }else{
+            totalLiquidity = totalLiquidity.subtract(tradeValue);
+        }
         price = totalLiquidity.divide(quantity);
     }
     public static TradeInfo createEmptyObject(){
         return new TradeInfo();
+    }
+
+    public Money getPrice() {
+        return price;
     }
     //todo method to look for expired trades!?!!?
 }
