@@ -10,14 +10,14 @@ import com.jpmtech.exceptions.StockNotFoundException;
 import org.javamoney.moneta.Money;
 
 import java.time.Instant;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Set;
 
 public class TradingStocksService {
 
     private StockRepositoryInterface stockRepository;
     private TradesRepositoryInterface tradesRepository;
-    private Set<TradeInfo> tradeInfoPerStock = new HashSet<>();
+    private HashMap<StockInterface,TradeInfo> tradeInfoPerStock = new HashMap<>();
 
     public StockRepositoryInterface getStockRepository() {
         return stockRepository;
@@ -57,6 +57,7 @@ public class TradingStocksService {
     private void addNewTrade(StockInterface stock, int quantity, Money price, TradeType tradeType){
         Trade trade = new Trade(Instant.now(), tradeType, stock, quantity, price);
         tradesRepository.addTrade(trade);
+        updateTradeInfoOfStock(trade);
         printTrade(trade);
     }
 
@@ -70,5 +71,14 @@ public class TradingStocksService {
                 stocks) {
             System.out.println(stock);
         }
+    }
+
+    private void updateTradeInfoOfStock(Trade trade) {
+        TradeInfo tradeInfo = tradeInfoPerStock.get(trade.getStock());
+        if(tradeInfo == null){
+            tradeInfo = new TradeInfo();
+            tradeInfoPerStock.put(trade.getStock(), tradeInfo);
+        }
+        tradeInfo.registerTrade(trade);
     }
 }

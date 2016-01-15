@@ -1,5 +1,6 @@
 package com.jpmtech.entities;
 
+import com.jpmtech.stockexchange.CustomStockExchange;
 import org.javamoney.moneta.Money;
 
 import java.math.BigDecimal;
@@ -8,14 +9,12 @@ public class TradeInfo {
 
     private Money price;
     private int quantity = 0;
-    private Money totalStockVolume = Money.of("GBP", BigDecimal.ZERO);
-    private Money totalLiquidity = Money.of("GBP", BigDecimal.ZERO);
+    private Money totalStockVolume = Money.of(CustomStockExchange.currency, BigDecimal.ZERO);
+    private Money totalLiquidity = Money.of(CustomStockExchange.currency, BigDecimal.ZERO);
 
 
-    public TradeInfo(Money price, Money totalStockVolume, Money totalLiquidity) {
-        this.price = price;
-        this.totalStockVolume = totalStockVolume;
-        this.totalLiquidity = totalLiquidity;
+    public TradeInfo() {
+
     }
 
     public void registerTrade(Trade trade) {
@@ -25,6 +24,8 @@ public class TradeInfo {
         totalStockVolume.add(tradeValue);
         price = totalLiquidity.divide(quantity);
     }
-
+    public static TradeInfo createEmptyObject(){
+        return new TradeInfo();
+    }
     //todo method to look for expired trades!?!!?
 }
