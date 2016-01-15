@@ -35,10 +35,6 @@ public class CustomStockExchange {
 
     }
 
-    private void calculateGeoMedian() {
-
-    }
-
     public void startTrading(){
         Set<StockInterface> stocks = tradingStocksService.getStockRepository().getAllStocks();
 

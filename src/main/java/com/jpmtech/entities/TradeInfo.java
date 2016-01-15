@@ -28,9 +28,6 @@ public class TradeInfo {
         }
         price = totalStockVolume.divide(quantity);
     }
-    public static TradeInfo createEmptyObject(){
-        return new TradeInfo();
-    }
 
     public Money getPrice() {
         return price;
