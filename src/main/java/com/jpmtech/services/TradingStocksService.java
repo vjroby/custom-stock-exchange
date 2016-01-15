@@ -4,17 +4,20 @@ import com.jpmtech.datasource.StockRepositoryInterface;
 import com.jpmtech.datasource.TradesRepositoryInterface;
 import com.jpmtech.entities.StockInterface;
 import com.jpmtech.entities.Trade;
+import com.jpmtech.entities.TradeInfo;
 import com.jpmtech.entities.TradeType;
 import com.jpmtech.exceptions.StockNotFoundException;
 import org.javamoney.moneta.Money;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 
 public class TradingStocksService {
 
     private StockRepositoryInterface stockRepository;
     private TradesRepositoryInterface tradesRepository;
+    private Set<TradeInfo> tradeInfoPerStock = new HashSet<>();
 
     public StockRepositoryInterface getStockRepository() {
         return stockRepository;
