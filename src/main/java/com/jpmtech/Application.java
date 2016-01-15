@@ -12,6 +12,9 @@ import com.jpmtech.stockexchange.CustomStockExchange;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Application {
 
@@ -25,7 +28,7 @@ public class Application {
         STOCKS = Collections.unmodifiableSet(Parser.parseCSVStocks(inputStream));
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         StockRepositoryInterface stockRepository = new MemoryStockRepository(STOCKS);
         TradesRepositoryInterface tradesRepository = new MemoryTradesRepository();
@@ -35,11 +38,26 @@ public class Application {
         CustomStockExchange exchange = new CustomStockExchange(tradingStocksService);
         exchange.startExchange();
         int i = 0;
-        while (i < 2){
-            exchange.startTrading();
-            i++;
+        try {
+            runTradesOnMultipleThreads();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+//        while (i < 2) {
+//            exchange.startTrading();
+//            i++;
+//        }
         exchange.stopExchange();
 
+    }
+
+    public static void runTradesOnMultipleThreads(CustomStockExchange customStockExchange) throws InterruptedException {
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(10);
+        Runnable task = customStockExchange::startTrading);
+
+        int initialDelay = 0;
+        int period = 1;
+
+        executor.scheduleWithFixedDelay(task, initialDelay,period, TimeUnit.SECONDS);
     }
 }
