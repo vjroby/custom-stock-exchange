@@ -26,7 +26,7 @@ public class TradeInfo {
         }else{
             totalLiquidity = totalLiquidity.subtract(tradeValue);
         }
-        price = totalLiquidity.divide(quantity);
+        price = totalStockVolume.divide(quantity);
     }
     public static TradeInfo createEmptyObject(){
         return new TradeInfo();
