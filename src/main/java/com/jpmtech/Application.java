@@ -39,7 +39,7 @@ public class Application {
         exchange.startExchange();
         int i = 0;
         try {
-            runTradesOnMultipleThreads();
+            runTradesOnMultipleThreads(exchange);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -47,13 +47,13 @@ public class Application {
 //            exchange.startTrading();
 //            i++;
 //        }
-        exchange.stopExchange();
+//        exchange.stopExchange();
 
     }
 
     public static void runTradesOnMultipleThreads(CustomStockExchange customStockExchange) throws InterruptedException {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(10);
-        Runnable task = customStockExchange::startTrading);
+        Runnable task = customStockExchange::startTrading;
 
         int initialDelay = 0;
         int period = 1;

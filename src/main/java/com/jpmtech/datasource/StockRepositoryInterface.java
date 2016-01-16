@@ -10,7 +10,5 @@ public interface StockRepositoryInterface {
 
     Set<StockInterface> getAllStocks();
 
-    StockInterface getRandomStock();
-
-
+    StockInterface getStockBySymbol(String symbol);
 }

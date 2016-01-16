@@ -1,8 +1,11 @@
 package com.jpmtech.datasource;
 
 import com.jpmtech.entities.StockInterface;
+import com.jpmtech.exceptions.StockNotFoundException;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class MemoryStockRepository implements StockRepositoryInterface{
 
@@ -23,7 +26,11 @@ public class MemoryStockRepository implements StockRepositoryInterface{
     }
 
     @Override
-    public StockInterface getRandomStock() {
-        return null;
+    public StockInterface getStockBySymbol(String symbol) {
+        List<StockInterface> stockInterface = stocks.stream().filter(stock -> stock.equals(symbol)).collect(Collectors.toList());
+        if(stockInterface.size() == 1){
+            return stockInterface.get(0);
+        }
+        throw new StockNotFoundException("Stock with symbol" + symbol + " not found");
     }
 }

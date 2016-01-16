@@ -40,12 +40,14 @@ public class TradingStocksService {
         return this;
     }
 
-    public Double calculateDividendYield(String stockSymbol) throws StockNotFoundException {
-        return null;
+    public Double calculateDividendYield(String stockSymbol, Money tickerPrice) throws StockNotFoundException {
+        StockInterface stock = stockRepository.getStockBySymbol(stockSymbol);
+        return stock.calculateDividendYield(tickerPrice);
     }
 
-    public Double calculatePERation(String stockSymbol) throws StockNotFoundException {
-        return null;
+    public Double calculatePERation(String stockSymbol, Money tickerPrice) throws StockNotFoundException {
+        StockInterface stock = stockRepository.getStockBySymbol(stockSymbol);
+        return stock.calculatePERatio(tickerPrice);
     }
 
     public void buyOrder(StockInterface stock, int quantity, Money price) {
