@@ -11,7 +11,7 @@ import java.util.Set;
 public class CustomStockExchange {
 
     public static final String currency = "GBP";
-    public static final long minutesToCalculateTrades = 1;
+    public static final long minutesToCalculateTrades = 10;
 
     private final TradingStocksService tradingStocksService;
 

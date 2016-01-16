@@ -23,7 +23,7 @@ public class TradeInfo {
 
     }
 
-    synchronized public void registerTrade(Trade trade) {
+     synchronized public void registerTrade(Trade trade) {
         quantity += trade.getQuantity();
         Money tradeValue = trade.getTradePrice().multiply(trade.getQuantity());
         totalStockVolume = totalStockVolume.add(tradeValue);
@@ -37,11 +37,11 @@ public class TradeInfo {
         return price;
     }
 
-    synchronized private void removeExpiredTrades(){
+    private void removeExpiredTrades(){
         if(allTrades.size() != 0){
             List<Trade> expiredTrades = allTrades.stream().filter(trade -> {
                 Instant systemInstant = Instant.now();
-                systemInstant.minus(Duration.ofMinutes(CustomStockExchange.minutesToCalculateTrades));
+                systemInstant = systemInstant.minus(Duration.ofMinutes(CustomStockExchange.minutesToCalculateTrades));
                 return systemInstant.isAfter(trade.getInstant());
             }).collect(Collectors.toList());
             if(expiredTrades.size() !=0){
@@ -52,12 +52,10 @@ public class TradeInfo {
                 }
             }
         }
-
-        calculatePrice();
     }
 
-    synchronized void calculatePrice(){
-        price = totalStockVolume.divide(totalQuantity.getNumber());
+    private void calculatePrice(){
+        price = totalStockVolume.divide(quantity);
 
     }
     //todo method to look for expired trades!?!!?
