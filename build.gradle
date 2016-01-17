@@ -31,3 +31,15 @@ task fatJar(type: Jar) {
     }
     with jar
 }
+task testJar(type: Jar) {
+    baseName = project.name + '-all-tests'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    manifest {
+        attributes 'Main-Class': 'TestRunner'
+    }
+    with jar
+}
+
+task runJar(dependsOn:fatJar) << {
+    javaexec { main="-jar"; args = ["build/libs/jpm-tech-all-1.0-SNAPSHOT.jar"] }
+}
