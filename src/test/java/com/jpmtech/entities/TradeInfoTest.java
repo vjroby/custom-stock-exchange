@@ -6,7 +6,7 @@ public class TradeInfoTest {
 
     @Test
     public void testRegisterTrade() throws Exception {
-
+    //TODO test expired trades
     }
 
     @Test

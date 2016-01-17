@@ -16,18 +16,12 @@ public class TradeInfo {
     private Money price;
     private int quantity = 0;
     private Money totalStockVolume = Money.of(CustomStockExchange.currency, BigDecimal.ZERO);
-    private Money totalQuantity = Money.of(CustomStockExchange.currency, BigDecimal.ZERO);
     private Set<Trade> allTrades = new HashSet<>();
-
-    public TradeInfo() {
-
-    }
 
      synchronized public void registerTrade(Trade trade) {
         quantity += trade.getQuantity();
         Money tradeValue = trade.getTradePrice().multiply(trade.getQuantity());
         totalStockVolume = totalStockVolume.add(tradeValue);
-        totalQuantity = totalQuantity.add(tradeValue);
         allTrades.add(trade);
         removeExpiredTrades();
         calculatePrice();
@@ -47,16 +41,18 @@ public class TradeInfo {
             if(expiredTrades.size() !=0){
                 for (Trade trade :
                         expiredTrades) {
-                    totalQuantity = totalQuantity.subtract(trade.getTradePrice().multiply(trade.getQuantity()));
+                    quantity = quantity - trade.getQuantity();
+                    totalStockVolume = totalStockVolume.subtract(trade.getTradePrice().multiply(trade.getQuantity()));
                     allTrades.remove(trade);
                 }
             }
         }
+        CustomStockExchange.p("Remaining trades: "+ allTrades.size());
     }
 
     private void calculatePrice(){
-        price = totalStockVolume.divide(quantity);
-
+        if(quantity > 0){
+            price = totalStockVolume.divide(quantity);
+        }
     }
-    //todo method to look for expired trades!?!!?
 }
