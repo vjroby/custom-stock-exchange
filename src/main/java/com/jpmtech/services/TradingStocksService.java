@@ -89,7 +89,7 @@ public class TradingStocksService {
         tradeInfo.registerTrade(trade);
     }
 
-    private Double calculateGEMean() {
+    public Double calculateGEMean() {
         List<Double> prices = tradeInfoPerStock.values().stream().map(tradeInfo ->
                 tradeInfo.getPrice().getNumber().doubleValueExact()
         ).collect(Collectors.toList());

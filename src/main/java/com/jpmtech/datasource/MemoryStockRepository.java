@@ -27,7 +27,7 @@ public class MemoryStockRepository implements StockRepositoryInterface{
 
     @Override
     public StockInterface getStockBySymbol(String symbol) {
-        List<StockInterface> stockInterface = stocks.stream().filter(stock -> stock.equals(symbol)).collect(Collectors.toList());
+        List<StockInterface> stockInterface = stocks.stream().filter(stock -> stock.hashCode() == symbol.hashCode()).collect(Collectors.toList());
         if(stockInterface.size() == 1){
             return stockInterface.get(0);
         }

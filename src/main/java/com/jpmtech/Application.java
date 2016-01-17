@@ -43,11 +43,6 @@ public class Application {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-//        while (i < 2) {
-//            exchange.startTrading();
-//            i++;
-//        }
-//        exchange.stopExchange();
 
     }
 
