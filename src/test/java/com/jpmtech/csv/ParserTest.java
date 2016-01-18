@@ -10,10 +10,6 @@ public class ParserTest {
 
     @Test
     public void testParseCSVStocks() throws Exception {
-
-//        InputStream inputStreamMock = Mockito.mock(InputStream.class);
-//
-//        Parser.parseCSVStocks(inputStreamMock);
-
+        //todo Parser tests in the next release
     }
 }
