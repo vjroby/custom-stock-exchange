@@ -47,6 +47,27 @@ public class TradeInfoTest {
 
     @Test
     public void testGetPrice() throws Exception {
+        Trade firstTrade = new Trade(
+                Instant.now(),
+                TradeType.BUY,
+                stockTest,
+                10,
+                Money.of("GBP", new BigDecimal(250))
+        );
+        TradeInfo tradeInfo = new TradeInfo();
+        tradeInfo.registerTrade(firstTrade);
+        assertEquals(Money.of("GBP", new BigDecimal(250)), tradeInfo.getPrice());
+        Trade secondTrade = new Trade(
+                Instant.now(),
+                TradeType.BUY,
+                stockTest,
+                200,
+                Money.of("GBP", new BigDecimal(200))
+        );
+        tradeInfo.registerTrade(secondTrade);
+
+        assertEquals(202.38095238095238, tradeInfo.getPrice().getNumber().doubleValue(),0.0);
+
 
     }
 }
