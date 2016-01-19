@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/vjroby/custom-stock-exchange.svg?branch=master)](https://travis-ci.org/vjroby/custom-stock-exchange)
+
 Custom Stock Exchange
 =====================
 
